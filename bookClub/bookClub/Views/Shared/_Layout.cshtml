@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Book Club Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Book Club Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (Session["UserID"] != null && Int32.Parse(Session["UserType"].ToString()) == 1)
+                    {
+                        <li>@Html.ActionLink(Session["Name"].ToString(), "ProfileUser", "Books")</li>
+                        <li>@Html.ActionLink("Add a review", "Create", "Reviews")</li>
+                        <li>@Html.ActionLink("Add a quote", "Create", "Quotes")</li>
+                    }     
+                            <li>@Html.ActionLink("Books", "Index", "Books")</li>
+                @if (Session["UserType"] !=null && Int32.Parse(Session["UserType"].ToString())==0 ){
+                            <li>@Html.ActionLink("Accounts", "Index", "Accounts")</li>
+                    }
+                @if (Session["UserType"] != null && (Int32.Parse(Session["UserType"].ToString()) == 0 || Int32.Parse(Session["UserType"].ToString()) == 1))
+                {
+                    <li>@Html.ActionLink("Authors", "Index", "Authors")</li>
+                }                          
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["UserType"] == null)
+                    {
+                    <li>@Html.ActionLink("Login", "Login", "Login")</li>
+                    <li>@Html.ActionLink("Register", "Create", "Login")</li>
+                    }
+                    @if (Session["UserType"] != null)
+                    {
+                    <li> @Html.ActionLink("Log Off", "LogOff", "Accounts")</li>
+                    }
+</ul>
+                 <!--@Html.Partial("_LoginPartial")--> 
+</div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Book Club Application</p>
+        </footer>
+    </div>
+ 
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<style type="text/css">
+    body {
+        background-image: url(Content/Images/pexels-photo-46274.jpeg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>

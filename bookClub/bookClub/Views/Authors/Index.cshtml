@@ -1,0 +1,34 @@
+﻿@model IEnumerable<bookClub.Models.Author>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Authors</h2>
+
+<p>
+    @Html.ActionLink("Add a new author", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+@if (Session["UserType"] != null && Int32.Parse(Session["UserType"].ToString()) == 0)
+{
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+}
+    </tr>
+}
+
+</table>

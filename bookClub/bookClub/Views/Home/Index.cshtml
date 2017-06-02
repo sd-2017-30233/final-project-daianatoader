@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (Session["UserName"] != null)
+{ 
+<div class="jumbotron">
+    <h1>Welcome, @Session["Name"].ToString()!</h1>
+</div>}
+else
+{
+    <div class="jumbotron">
+        <h1>BookClub</h1>
+    </div>
+}
+
